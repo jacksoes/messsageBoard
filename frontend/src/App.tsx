@@ -1,33 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+
+import { useRef, useEffect } from 'react'
+import { RxStomp } from '@stomp/rx-stomp'
+
+import SockJS from "sockjs-client"
+
+
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+import type { RxStompConfig } from '@stomp/rx-stomp'
+
+const rxStompConfig: RxStompConfig = {
+  webSocketFactory: () => new SockJS('http://localhost:8080/gs-guide-websocket'),
+  connectHeaders: {
+    login: 'guest',
+    passcode: 'guest',
+  },
+  debug: (msg) => {
+    console.log(new Date(), msg)
+  },
+  heartbeatIncoming: 0,
+  heartbeatOutgoing: 20000,
+  reconnectDelay: 200,
+}
+
+
+
+function App() {
+
+  
+  const rxStompRef = useRef(new RxStomp())
+  const rxStomp = rxStompRef.current
+
+  
+  useEffect(() => {
+    rxStomp.configure(rxStompConfig)
+    rxStomp.activate()
+  
+    const sub = rxStomp.watch('/topic/greetings').subscribe(message => {
+      console.log('Message from server:', message.body)
+    })
+  
+    // Optional test message
+    rxStomp.publish({
+      destination: '/app/hello',
+      body: JSON.stringify({ name: 'Jack' })
+    })
+  
+    return () => {
+      sub.unsubscribe()
+      rxStomp.deactivate()
+    }
+  }, [])
+  
+
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Hello RxStomp!</h1>
     </>
   )
 }
