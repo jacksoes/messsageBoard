@@ -5,11 +5,12 @@ import { RxStomp } from '@stomp/rx-stomp'
 
 import SockJS from "sockjs-client"
 
+import Chat from './components/Chat.tsx'
 
 
 import './App.css'
 
-
+/*
 
 import type { RxStompConfig } from '@stomp/rx-stomp'
 
@@ -26,12 +27,12 @@ const rxStompConfig: RxStompConfig = {
   heartbeatOutgoing: 20000,
   reconnectDelay: 200,
 }
-
+*/
 
 
 function App() {
 
-  
+  /*
   const rxStompRef = useRef(new RxStomp())
   const rxStomp = rxStompRef.current
 
@@ -55,12 +56,12 @@ function App() {
       rxStomp.deactivate()
     }
   }, [])
-  
+  */
 
   
   return (
     <>
-      <h1>Hello RxStomp!</h1>
+      <Chat /> 
     </>
   )
 }
