@@ -1,0 +1,15 @@
+.topic-container {
+  background-color: #cccccc;
+  height: 100vh;
+  width: 80vw;
+  padding: 4rem;
+}
+
+.topic-header{
+    text-align: center;
+}
+
+.topic-img{
+    height: 100%;
+    width: 100%;
+}

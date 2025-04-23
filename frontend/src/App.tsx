@@ -6,6 +6,7 @@ import { RxStomp } from '@stomp/rx-stomp'
 import SockJS from "sockjs-client"
 
 import Chat from './components/Chat.tsx'
+import Topic from './components/Topic.tsx'
 
 
 import './App.css'
@@ -61,7 +62,10 @@ function App() {
   
   return (
     <>
-      <Chat /> 
+      <div className='homepage'>
+        <Topic />
+        <Chat />
+      </div> 
     </>
   )
 }
