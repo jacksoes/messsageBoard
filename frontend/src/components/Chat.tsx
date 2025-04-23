@@ -1,29 +1,40 @@
-import "./Chat.css"
+import "./Chat.css";
 
-const Chat = () =>{
-    return(
+const Chat = ({ chat, submitChat }) => {
+
+    
+
+    
+  return (
     <div className="container">
+      <div className="chat-display">
 
-        <div className="chat-display">
-            <span className="text-content">Jack: i am typing in the chat</span>
-            <br/>
-            <br/>
-            <span className="text-content">User2: i am also typign in chat</span>
-            
-         
-            
-        </div>
-        
-        <div className="chat-input-container">
+        {chat.map((item, index) => {
 
-            <input className="chat-input"></input>
+            let arr = item.content.split("@$#@")
 
-            <button className="chat-button">Chat</button>
-        </div>
-        
-        
+            item = {role: arr[0], message: arr[1]}
+
+
+             return (
+
+          <div key={index}>
+            <span className="text-content">
+              {item.role + ": " + item.message}
+            </span>
+            <br />
+            <br />
+          </div>);
+        })}
+      </div>
+
+        <form onSubmit={submitChat} className="chat-input-container">
+        <input className="chat-input"></input>
+
+        <button className="chat-button"  >Chat</button>
+        </form>
     </div>
-)
-}
+  );
+};
 
 export default Chat;
