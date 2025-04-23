@@ -11,11 +11,13 @@
 
 .chat-input-container{
     
+    
     width: 25vw;
     height: 2vh;
     display: flex;
     vertical-align: baseline;
     margin-bottom: 1rem;
+    margin-top: .5rem;
     align-items: center;
 
     
@@ -46,4 +48,17 @@
 .chat-button:hover{
     cursor: pointer;
 
+}
+
+.chat-display{
+    background-color: darkgre;
+    flex-grow: 1;
+    margin: .75rem;
+    background-color: whitesmoke;
+    border-radius: .5rem;
+    padding: .5rem;
+}
+
+.text-content{
+    padding: .5rem;
 }
